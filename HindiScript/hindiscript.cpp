@@ -322,8 +322,8 @@ int compiler()
 
     // Compile the source file using the system command
     int compilationResult = system(compileCommand.c_str()); // c_str is used to convert stirng to c style char array end with null character ,  bcz system() uses a c style array r char with null character at end (a c sting) so we us this funcitoln c_str to convert the cpp sting to c style string
-    Sleep(1000);
-    getchar();
+    // Sleep(1000);
+    // getchar();
     // removing src file
     remove(sourceFileName.c_str());
 
