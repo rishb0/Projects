@@ -132,6 +132,7 @@ public class newEncodeDecode {
 
     public static SecretKey generateTripleDESKey() throws Exception {
     KeyGenerator keyGenerator = KeyGenerator.getInstance("DESede");
+    keyGenerator.init(168); // Specify the key size explicitly
     return keyGenerator.generateKey();
     }
     
