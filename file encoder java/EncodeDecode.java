@@ -4,7 +4,7 @@
 // this is a file encryptor and decryptor 
 
 // ..............................................................
-// this is a new verison of it and it has  3 divison of the key 
+// this is a new verison of it and it has  2 divison of the key 
 // ..............................................................
 import java.util.Scanner;
 import javax.crypto.*;
