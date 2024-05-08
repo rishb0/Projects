@@ -23,9 +23,10 @@ class myPDFUnlocker:
                         
                     with open('decrypted_pdf.pdf','wb') as outputFile:
                         writer.write(outputFile)
-                        
+                    print(f'the decrypted file is saved as "decrypted_pdf.pdf" ')
+                    return 1 
                 else :
-                    return -1
+                    return 0
                 
 
             else :
