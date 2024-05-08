@@ -1,8 +1,8 @@
 # status:complete
-# version = 1.0
+# version = 1.0.1
 # authpr : rishabh soni
 # date: 8 may 2024
-# this is a pdf file encryptor ,we can add passwird to a pdf file by this tool 
+# this is a pdf file encryptor ,we can add password to a pdf file by this tool 
 
 
 from  PyPDF2 import PdfWriter , PdfReader
@@ -30,4 +30,5 @@ def main():
     password=input('enter the password :')
     pdftool.pdfEncryptor(pdf,password)
     
-# main()
+if __name__ == '__main__':
+    main()
