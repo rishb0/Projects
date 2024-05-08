@@ -40,8 +40,8 @@ void signalHandler(int signum)
     {
         // removing these temp files , if they user press clt c and they got undeleted 
         remove("error_logFile.txt");
-        remove("DELETE_THIS_TEMP_FILE_.exe");
-        remove("DELETE_THIS_TEMP_FILE_.cpp"); 
+        remove("deletethis.exe");
+        remove("deletethis.cpp"); 
 
         cout << RESET; // reseting the terimanl color to default
         exit(0); // Exit gracefully after removing the file
@@ -247,7 +247,7 @@ void loadingMessage()
     cout << GREEN << "" << WHITE << "s" << GREEN << "     p           " << WHITE << "s" << GREEN << "   " << WHITE << "#" << GREEN << "   a     " << WHITE << "r" << GREEN << "   . " << WHITE << "g" << GREEN << "         " << WHITE << "t" << GREEN << "     a       " << WHITE << ">" << GREEN << "   x " << WHITE << "p" << GREEN << "   v" << RESET << endl;
     Sleep(40);
     cout << GREEN << "      " << WHITE << "u" << GREEN << "                   " << WHITE << "l" << GREEN << "         " << WHITE << ")" << GREEN << "                 " << WHITE << "m" << GREEN << "           " << WHITE << "x" << GREEN << "     " << WHITE << "a" << GREEN << RESET << endl;
-    Sleep(250);
+    Sleep(40);
     // Sleep(5);
     system("cls");
     // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -293,7 +293,7 @@ void terminal()
 
     // opening  src file
     ofstream fout;
-    fout.open("DELETE_THIS_TEMP_FILE_.cpp");
+    fout.open("deletethis.cpp");
 
     // writing to src file
     fout << fullCode;
@@ -306,8 +306,8 @@ int compiler()
 
     loadingMessage();
     // compiling the cpp file and storing there
-    string sourceFileName = "DELETE_THIS_TEMP_FILE_.cpp";
-    string outputFileName = "DELETE_THIS_TEMP_FILE_.exe";
+    string sourceFileName = "deletethis.cpp";
+    string outputFileName = "deletethis.exe";
 
     // this is the name of a file which wil hold the errorcode displayed by compiler on terminal
     string errorFileName = "error_logFile.txt"; //  we use ( . ) dot before file name to make it hidden
@@ -325,11 +325,11 @@ int compiler()
     // Sleep(1000);
     // getchar();
     // removing src file
-    remove(sourceFileName.c_str());
+    // remove(sourceFileName.c_str());
 
     if (compilationResult == 0)
     {
-        remove(errorFileName.c_str()); //   this will delete the error file ,as it's work is no more
+        // remove(errorFileName.c_str()); //   this will delete the error file ,as it's work is no more
     }
     else
     {
@@ -340,7 +340,7 @@ int compiler()
              << RESET;
         cout << BBLACK << "\n [ ENTER dabao ] " << RESET;
 
-        remove(errorFileName.c_str()); //   this will delete the error file ,as it's work is no more
+        // remove(errorFileName.c_str()); //   this will delete the error file ,as it's work is no more
 
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         system("cls");
@@ -455,13 +455,13 @@ void executer()
          << RESET;
 
     cout << BOLD;
-    system("DELETE_THIS_TEMP_FILE_.exe");
+    system("deletethis.exe");
     cout << RESET;
     cout << BBLACK << "\n\n------------------------------------------------------------\n\n"
          << RESET;
 
     // removing output
-    remove("DELETE_THIS_TEMP_FILE_.exe");
+    remove("deletethis.exe");
 
     cout << BBLACK << "\n [ ENTER dabao ] " << RESET;
 
@@ -473,7 +473,7 @@ void executer()
 int main()
 {
  // installing signalhandler funciton to handle the clt c
-    signal(SIGINT, signalHandler);
+    // signal(SIGINT, signalHandler);
 
     load();
 
@@ -481,15 +481,22 @@ int main()
     while (1)
     {
         welcomeScreen(); // display namste
-        terminal();      // run terminal
+        terminal();      // run terminal     
 
-        int isCompiled = compiler();
+        int isCompiled = compiler();        
 
         if (isCompiled)
-            executer();
+            executer();        
     }
 
     return 0;
+
+    // 328
+    // 332
+    // 343
+    // 476
+
+
 }
 
 /*
