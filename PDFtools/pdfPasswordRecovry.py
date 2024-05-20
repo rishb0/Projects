@@ -6,7 +6,33 @@
 # also it will tell the password of the file
 import itertools
 import string
-from pdfDecryptor import myPDFUnlocker
+from PyPDF2 import PdfReader , PdfWriter
+
+class myPDFUnlocker:
+    def pdfDecryptor(self,pdfName,password):
+        with open(pdfName,'rb') as file:
+            reader=PdfReader(file)
+            
+            if reader.is_encrypted:
+                
+                if reader.decrypt(password):
+                    
+                    writer=PdfWriter()
+                    
+                    for page in reader.pages:
+                        writer.add_page(page)
+                        
+                    with open('decrypted_pdf.pdf','wb') as outputFile:
+                        writer.write(outputFile)
+                    print(f'the decrypted file is saved as "decrypted_pdf.pdf" ')
+                    return 1 
+                else :
+                    return 0
+                
+
+            else :
+                print("pdf is not encrypted")
+
 class myCracker:
     
     def generate_passwords(self,n):
