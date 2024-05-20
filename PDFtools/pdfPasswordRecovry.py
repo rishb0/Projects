@@ -1,4 +1,4 @@
-#status: completed but not tested 
+#status: completed but it take too much time 
 # version=1.1
 # what's new= fixed the bug, before it checks for only n lenght passwords now it check for all lenght of passwordd till n
 # this proram is made by rishabh soni 
@@ -8,65 +8,61 @@ import itertools
 import string
 from PyPDF2 import PdfReader , PdfWriter
 
-class myPDFUnlocker:
-    def pdfDecryptor(self,pdfName,password):
-        with open(pdfName,'rb') as file:
-            reader=PdfReader(file)
+def pdfDecryptor(pdfName,password):
+    with open(pdfName,'rb') as file:
+        reader=PdfReader(file)
+        
+        if reader.is_encrypted:
             
-            if reader.is_encrypted:
+            if reader.decrypt(password):
                 
-                if reader.decrypt(password):
-                    
-                    writer=PdfWriter()
-                    
-                    for page in reader.pages:
-                        writer.add_page(page)
-                        
-                    with open('decrypted_pdf.pdf','wb') as outputFile:
-                        writer.write(outputFile)
-                    print(f'the decrypted file is saved as "decrypted_pdf.pdf" ')
-                    return 1 
-                else :
-                    return 0
+                writer=PdfWriter()
                 
-
+                for page in reader.pages:
+                    writer.add_page(page)
+                    
+                with open('decrypted_pdf.pdf','wb') as outputFile:
+                    writer.write(outputFile)
+                print(f'the decrypted file is saved as "decrypted_pdf.pdf" ')
+                return 1 
             else :
-                print("pdf is not encrypted")
-
-class myCracker:
-    
-    def generate_passwords(self,n):
-        # Define the character set
-        characters = string.ascii_letters + string.digits + string.punctuation
-        
-        # Generate all combinations of characters up to length n
-        for length in range(1, n + 1):
-            all_combinations = itertools.product(characters, repeat=length)
-
-        # Convert each combination into a string and yield it
-            for combination in all_combinations:
-                yield ''.join(combination)
-
-    def PDFPasswordRecovery(self,pdfName,level=16):
-        
-        cracker=myPDFUnlocker()
-        crackedPassword=''
-        isCracked=0
+                return 0
             
-        tempPasswords= self.generate_passwords(level)
+
+        else :
+            print("pdf is not encrypted")
+
+    
+def generate_passwords(n):
+    # Define the character set
+    characters = string.ascii_letters + string.digits + string.punctuation
+    
+    # Generate all combinations of characters up to length n
+    for length in range(1, n + 1):
+        all_combinations = itertools.product(characters, repeat=length)
+
+    # Convert each combination into a string and yield it
+        for combination in all_combinations:
+            yield ''.join(combination)
+
+def PDFPasswordRecovery(pdfName,level=16):
+    
+    crackedPassword=''
+    isCracked=0
         
-        for password in tempPasswords:
-            isCracked=cracker.pdfDecryptor(pdfName,password)
-            if isCracked==1:
-                crackedPassword=password
-                break
-        
-        print(f'the password of the pdf file is "{crackedPassword}" ')
+    tempPasswords= generate_passwords(level)
+    
+    for password in tempPasswords:
+        isCracked=pdfDecryptor(pdfName,password)
+        if isCracked==1:
+            crackedPassword=password
+            break
+    
+    print(f'the password of the pdf file is "{crackedPassword}" ')
         
 def main():
     pdf=input('enter pdf name to remove password:')
-    pdftool=myCracker()
-    pdftool.PDFPasswordRecovery(pdf,2)
+    PDFPasswordRecovery(pdf,2)
     
 if __name__=='__main__':
     main()

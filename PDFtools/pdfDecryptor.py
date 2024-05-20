@@ -6,37 +6,35 @@
 
 
 from PyPDF2 import PdfReader , PdfWriter
-
-class myPDFUnlocker:
-    def pdfDecryptor(self,pdfName,password):
-        with open(pdfName,'rb') as file:
-            reader=PdfReader(file)
+def pdfDecryptor(pdfName,password):
+    with open(pdfName,'rb') as file:
+        reader=PdfReader(file)
+        
+        if reader.is_encrypted:
             
-            if reader.is_encrypted:
+            if reader.decrypt(password):
                 
-                if reader.decrypt(password):
-                    
-                    writer=PdfWriter()
-                    
-                    for page in reader.pages:
-                        writer.add_page(page)
-                        
-                    with open('decrypted_pdf.pdf','wb') as outputFile:
-                        writer.write(outputFile)
-                    print(f'the decrypted file is saved as "decrypted_pdf.pdf" ')
-                    return 1 
-                else :
-                    return 0
+                writer=PdfWriter()
                 
-
+                for page in reader.pages:
+                    writer.add_page(page)
+                    
+                with open('decrypted_pdf.pdf','wb') as outputFile:
+                    writer.write(outputFile)
+                print(f'the decrypted file is saved as "decrypted_pdf.pdf" ')
+                return 1 
             else :
-                print("pdf is not encrypted")
+                return 0
+            
+
+        else :
+            print("pdf is not encrypted")
 
 def main():
-    pdftool=myPDFUnlocker()
+    
     pdf=input('enter the pdf path to decrypt:')
     password=input('enter the password :')
-    pdftool.pdfDecryptor(pdf,password)
+    pdfDecryptor(pdf,password)
     
     
 if __name__ == "__main__":
