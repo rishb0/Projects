@@ -13,8 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-L60WRe
-zWPs4=
+
 class EncodeDecode {
     public static String encrypt(String plaintext, String key) throws Exception {
         SecretKey secretKey = createKey(key);
